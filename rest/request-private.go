@@ -17,6 +17,14 @@ func (p *Client) Information(req *account.RequestForInformation) (*account.Respo
 	return results, nil
 }
 
+func (p *Client) LoginStatus(req *account.RequestForLoginStatus) (*account.ResponseForLoginStatus, error) {
+	results := new(account.ResponseForLoginStatus)
+	if err := p.request(req, results); err != nil {
+		return nil, err
+	}
+	return results, nil
+}
+
 func (p *Client) Positions(req *account.RequestForPositions) (*account.ResponseForPositions, error) {
 	results := new(account.ResponseForPositions)
 	if err := p.request(req, results); err != nil {
