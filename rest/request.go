@@ -52,6 +52,9 @@ func (p *Client) newRequest(r Requester) *fasthttp.Request {
 	if p.Auth != nil {
 		nonce := fmt.Sprintf("%d", int64(time.Now().UTC().UnixNano()/int64(time.Millisecond)))
 		payload := nonce + r.Method() + u.Path + u.RawQuery + string(body)
+		if r.Method() == "GET" {
+			payload = nonce + r.Method() + u.Path + "?" + u.RawQuery
+		}
 		// fmt.Printf("%+v\n", payload)
 		req.Header.Set("Content-Type", "application/json")
 		req.Header.Set("FTX-KEY", p.Auth.Key)
