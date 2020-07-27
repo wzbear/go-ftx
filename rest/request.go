@@ -52,7 +52,7 @@ func (p *Client) newRequest(r Requester) *fasthttp.Request {
 	if p.Auth != nil {
 		nonce := fmt.Sprintf("%d", int64(time.Now().UTC().UnixNano()/int64(time.Millisecond)))
 		payload := nonce + r.Method() + u.Path + u.RawQuery + string(body)
-		if r.Method() == "GET" {
+		if r.Method() == "GET" && u.RawQuery != "" {
 			payload = nonce + r.Method() + u.Path + "?" + u.RawQuery
 		}
 		// fmt.Printf("%+v\n", payload)
