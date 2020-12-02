@@ -25,9 +25,10 @@ type Position struct {
 	LongOrderSize  float64 `json:"longOrderSize"`
 	ShortOrderSize float64 `json:"shortOrderSize"`
 
-	Cost          float64 `json:"cost"`
-	UnrealizedPnl float64 `json:"unrealizedPnl"`
-	RealizedPnl   float64 `json:"realizedPnl"`
+	Cost                   float64 `json:"cost"`
+	UnrealizedPnl          float64 `json:"unrealizedPnl"`
+	RealizedPnl            float64 `json:"realizedPnl"`
+	RecentAverageOpenPrice float64 `json:"recentAverageOpenPrice"`
 }
 
 func (req *RequestForPositions) Path() string {
@@ -39,7 +40,9 @@ func (req *RequestForPositions) Method() string {
 }
 
 func (req *RequestForPositions) Query() string {
-	return ""
+	value, _ := query.Values(req)
+	value["showAvgPrice"] = []string{"true"}
+	return value.Encode()
 }
 
 func (req *RequestForPositions) Payload() []byte {
