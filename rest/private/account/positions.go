@@ -2,6 +2,8 @@ package account
 
 import (
 	"net/http"
+
+	"github.com/google/go-querystring/query"
 )
 
 type RequestForPositions struct {
